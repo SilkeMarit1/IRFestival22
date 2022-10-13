@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   festivalName: "IRFestival - DEV",
-  apiBaseUrl: "https://localhost:7097/api/"
+  apiBaseUrl: "https://localhost:7097/api/",
+  connectionstringAppInsights: "InstrumentationKey=f277355a-9671-4ac5-bb28-6a1c03527a4c;IngestionEndpoint=https://westeurope-5.in.applicationinsights.azure.com/;LiveEndpoint=https://westeurope.livediagnostics.monitor.azure.com/"
 };
 
 /*

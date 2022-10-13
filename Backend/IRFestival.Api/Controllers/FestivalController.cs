@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using IRFestival.Api.Data;
 using IRFestival.Api.Domain;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.ApplicationInsights;
 
 namespace IRFestival.Api.Controllers
 {
@@ -13,11 +14,21 @@ namespace IRFestival.Api.Controllers
     public class FestivalController : ControllerBase
     {
         private readonly FestivalDbContext _ctx;
+        private readonly TelemetryClient _telemetryClient;
 
-        public FestivalController(FestivalDbContext ctx)
+        public FestivalController(FestivalDbContext ctx, TelemetryClient telemetryClient)
         {
             _ctx = ctx;
+            _telemetryClient = telemetryClient;
         }
+
+        /*[HttpGet("LineUp")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Schedule))]
+        public IActionResult GetLineUp()
+        {
+            throw new ApplicationException("Lineup failed");
+            return Ok(FestivalDataSource.Current.LineUp);
+        }*/
 
         [HttpGet("LineUp")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Schedule))]
@@ -32,13 +43,23 @@ namespace IRFestival.Api.Controllers
 
             return Ok(lineUp);
         }
-
+        
         [HttpGet("Artists")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Artist>))]
-        public async Task<ActionResult> GetArtists()
+        public async Task<ActionResult> GetArtists(bool? withRatings)
         {
-            List<Artist> artists = await _ctx.Artists.ToListAsync();
-            return Ok(artists);
+            if(withRatings.HasValue && withRatings.Value)
+            {
+                _telemetryClient.TrackEvent($"List of artists with ratings");
+            }
+            else
+            {
+                _telemetryClient.TrackEvent($"List of artists without ratings");
+            }
+            /*List<Artist> artists = await _ctx.Artists.ToListAsync();
+            return Ok(artists);*/
+
+            return base.Ok(FestivalDataSource.Current.Artists);
         }
 
         [HttpGet("Stages")]
