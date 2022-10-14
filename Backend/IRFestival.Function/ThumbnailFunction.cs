@@ -14,7 +14,7 @@ namespace IRFestival.Function
     {
         [FunctionName("ThumbnailFunction")]
         public static void Run(
-            [BlobTrigger("festivalpics-uploaded/{name}", Connection = "BlobStorageConnection")]Stream image, string name, ILogger log,
+            [BlobTrigger("festivalpics-approved/{name}", Connection = "BlobStorageConnection")]Stream image, string name, ILogger log,
             [Blob("festivalthumbs/{name}", FileAccess.Write, Connection = "BlobStorageConnection")]Stream thumbnail)
         {
             log.LogInformation($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {image.Length} Bytes");

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRFestival.Api", "IRFestival.Api\IRFestival.Api.csproj", "{D7D1177D-6A32-4C8D-8437-70A503AC5B7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRFestival.Function", "IRFestival.Function\IRFestival.Function.csproj", "{44A1560C-EE8D-46B7-9D72-BDA73302217F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRFestival.Function", "IRFestival.Function\IRFestival.Function.csproj", "{44A1560C-EE8D-46B7-9D72-BDA73302217F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
