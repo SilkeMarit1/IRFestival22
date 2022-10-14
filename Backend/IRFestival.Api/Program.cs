@@ -1,3 +1,4 @@
+using Azure.Identity;
 using Azure.Storage;
 using Azure.Storage.Blobs;
 using IRFestival.Api.Common;
@@ -6,6 +7,9 @@ using IRFestival.Api.Options;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddAzureKeyVault(
+    new Uri($"https://irfestivalkeyvaultsm.vault.azure.net/"),
+    new DefaultAzureCredential(new DefaultAzureCredentialOptions()));
 
 builder.Services.AddDbContext<FestivalDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -36,6 +40,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.Configure<AppSettingsOptions>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.AddApplicationInsightsTelemetry(builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]);
+
+
 
 var app = builder.Build();
 
