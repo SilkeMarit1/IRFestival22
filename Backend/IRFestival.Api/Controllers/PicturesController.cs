@@ -29,6 +29,7 @@ namespace IRFestival.Api.Controllers
                 .Select(blob => BlobUtility.GetSasUri(container, blob.Name))
                 .ToArray();
             return Ok(result);
+
         }
 
         [HttpPost]
