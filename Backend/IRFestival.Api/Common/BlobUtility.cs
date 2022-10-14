@@ -19,7 +19,7 @@ namespace IRFestival.Api.Common
             Options = options.Value;
         }
 
-        public BlobContainerClient GetPicturesContainer() => Client.GetBlobContainerClient(Options.PicturesContainer);
+        public BlobContainerClient GetThumbsContainer() => Client.GetBlobContainerClient(Options.PicturesContainer);
 
         public string GetSasUri(BlobContainerClient container, string blobName)
         {

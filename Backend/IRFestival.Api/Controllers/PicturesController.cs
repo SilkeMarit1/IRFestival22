@@ -24,7 +24,7 @@ namespace IRFestival.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK, Type= typeof(string[]))]
         public async Task<ActionResult> GetAllPictureUrls()
         {
-            var container = BlobUtility.GetPicturesContainer();
+            var container = BlobUtility.GetThumbsContainer();
             var result = container.GetBlobs()
                 .Select(blob => BlobUtility.GetSasUri(container, blob.Name))
                 .ToArray();
@@ -36,7 +36,7 @@ namespace IRFestival.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK, Type= typeof(AppSettingsOptions))]
         public async Task<ActionResult> PostPicture(IFormFile file)
         {
-            BlobContainerClient container = BlobUtility.GetPicturesContainer();
+            BlobContainerClient container = BlobUtility.GetThumbsContainer();
             var filename = $"{DateTimeOffset.UtcNow.ToUnixTimeSeconds()}{HttpUtility.UrlPathEncode(file.FileName)}";
             await container.UploadBlobAsync(filename, file.OpenReadStream());
             return Ok();
