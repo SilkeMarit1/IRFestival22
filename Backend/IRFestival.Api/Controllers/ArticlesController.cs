@@ -18,8 +18,6 @@ namespace IRFestival.Api.Controllers
         {
             _cosmosClient = new CosmosClient(configuration.GetConnectionString("CosmosConnection"));
             _websiteArticlesContainer = _cosmosClient.GetContainer("IRFestivalArticles", "WebsiteArticles");
-
-
         }
 
         [HttpGet]
