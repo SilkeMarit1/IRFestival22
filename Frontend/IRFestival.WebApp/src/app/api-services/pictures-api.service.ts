@@ -20,6 +20,7 @@ export class PicturesApiService {
     const data = new FormData();
     data.set('file', file);
 
-    return this.httpClient.post<never>(`${this.baseUrl}`, data);
+    const header = new HttpHeaders().set("Ocp-Apim-Subscription-Key", "a382a4ac17dd422597e3a8662b867add");
+    return this.httpClient.post<never>(`${this.baseUrl}`, data, { "headers": header });
   }
 }
