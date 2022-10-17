@@ -6,6 +6,8 @@ using IRFestival.Api.Data;
 using IRFestival.Api.Options;
 using Microsoft.EntityFrameworkCore;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddAzureKeyVault(
     new Uri($"https://irfestivalkeyvaultsm.vault.azure.net/"),
@@ -27,7 +29,7 @@ var storageSharedKeyCredential = new StorageSharedKeyCredential(
     builder.Configuration.GetValue<string>("Storage:AccountKey"));
 string blobUri = "https://" + storageSharedKeyCredential.AccountName + ".blob.core.windows.net";
 
-builder.Configuration.AddAzureAppConfiguration(builder.Configuration.GetConnectionString("AppConfiguration"));
+builder.Configuration.AddAzureAppConfiguration(builder.Configuration.GetConnectionString("AppConfigConnection"));
 
 builder.Services.AddSingleton(p => new BlobServiceClient(new Uri(blobUri), storageSharedKeyCredential));
 builder.Services.AddSingleton(p => storageSharedKeyCredential);
