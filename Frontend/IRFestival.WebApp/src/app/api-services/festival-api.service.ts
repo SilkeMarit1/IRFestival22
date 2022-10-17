@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Schedule } from '../api/models/schedule.model';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Artist } from '../api/models/artist.model';
 
@@ -14,10 +14,12 @@ export class FestivalApiService {
   constructor(private httpClient: HttpClient) { }
 
   getSchedule(): Observable<Schedule> {
-    return this.httpClient.get<Schedule>(`${this.baseUrl}/lineup`);
+    const header = new HttpHeaders().set("Ocp-Apim-Subscription-Key", "a382a4ac17dd422597e3a8662b867add");
+    return this.httpClient.get<Schedule>(`${this.baseUrl}/lineup`, { "headers": header });
   }
 
   getArtists(): Observable<Artist[]> {
-    return this.httpClient.get<Artist[]>(`${this.baseUrl}/artists`);
+    const header = new HttpHeaders().set("Ocp-Apim-Subscription-Key", "a382a4ac17dd422597e3a8662b867add");
+    return this.httpClient.get<Artist[]>(`${this.baseUrl}/artists`, { "headers": header });
   }
 }
